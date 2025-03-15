@@ -1,0 +1,66 @@
+---
+---
+
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="logo">💎 Распив Духов</a>
+    <div class="links">
+      <a href="/blog" class="nav-link">Блог</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    background: rgba(30, 30, 40, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: linear-gradient(135deg, #9f7aea, #4c51bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .links {
+      gap: 1rem;
+    }
+  }
+</style>

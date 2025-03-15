@@ -1,0 +1,155 @@
+---
+import yuliyaData from '../data/sellers/yuliya.json';
+import baraholkaData from '../data/sellers/baraholka.json';
+import poyasniData from '../data/sellers/poyasni.json';
+import parfposidelkiData from '../data/sellers/parfposidelki.json';
+import odekolonData from '../data/sellers/odekolon.json';
+import parfumerData from '../data/sellers/parfumer.json';
+import cvetiipahniData from '../data/sellers/cvetiipahni.json';
+import raspivData from '../data/sellers/raspiv.json';
+
+const sellers = [
+  yuliyaData,
+  baraholkaData,
+  poyasniData,
+  parfposidelkiData,
+  odekolonData,
+  parfumerData,
+  cvetiipahniData,
+  raspivData
+];
+
+const sellerIds = {
+  'Юлин Парфюм': 'yuliya',
+  'Та самая Барахолка': 'baraholka',
+  'Поясни за Духари!': 'poyasni',
+  'ПарфПосиделки - клуб ценителей парфюма': 'parfposidelki',
+  'Одеколон ВД': 'odekolon',
+  'PARFUMER ATELIER': 'parfumer',
+  'Цвети и Пахни': 'cvetiipahni',
+  'Сайт с распивами для ценителей оригинальной парфюмерии': 'raspiv'
+};
+---
+
+<div class="perfume-grid">
+  {sellers.map((seller) => (
+    <div class="seller-card">
+      <div class="seller-header">
+        <span class="emoji">{seller.emoji}</span>
+        <h2>{seller.name}</h2>
+      </div>
+      <p class="description">{seller.description}</p>
+      <div class="seller-details">
+        <p class="authenticity">{seller.authenticity}</p>
+        <p class="price">{seller.price}</p>
+        <p class="fragrances">{seller.fragrances}</p>
+        <p class="reviews">{seller.reviews}</p>
+      </div>
+      <div class="buttons">
+        <a href={`/seller/${sellerIds[seller.name]}`} class="details-button">
+          Подробнее
+        </a>
+        <a href={seller.chat} class="chat-button" target="_blank" rel="noopener noreferrer">
+          Написать в чат
+        </a>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .perfume-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .seller-card {
+    background: rgba(30, 30, 40, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  .seller-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .seller-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .emoji {
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .seller-details p {
+    margin: 0.5rem 0;
+    color: #ccc;
+    font-size: 1.1rem;
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .details-button, .chat-button {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 0.5rem;
+    transition: opacity 0.2s;
+  }
+
+  .details-button {
+    background: linear-gradient(135deg, #9f7aea, #4c51bf);
+  }
+
+  .chat-button {
+    background: linear-gradient(135deg, #4c51bf, #3182ce);
+  }
+
+  .details-button:hover, .chat-button:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 1200px) {
+    .perfume-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .perfume-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

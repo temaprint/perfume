@@ -1,0 +1,325 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import yuliyaData from '../../data/sellers/yuliya.json';
+import baraholkaData from '../../data/sellers/baraholka.json';
+import poyasniData from '../../data/sellers/poyasni.json';
+import parfposidelkiData from '../../data/sellers/parfposidelki.json';
+import odekolonData from '../../data/sellers/odekolon.json';
+import parfumerData from '../../data/sellers/parfumer.json';
+import cvetiipahniData from '../../data/sellers/cvetiipahni.json';
+import raspivData from '../../data/sellers/raspiv.json';
+
+export function getStaticPaths() {
+  const sellers = [
+    yuliyaData,
+    baraholkaData,
+    poyasniData,
+    parfposidelkiData,
+    odekolonData,
+    parfumerData,
+    cvetiipahniData,
+    raspivData
+  ];
+
+  const sellerIds = {
+    'Юлин Парфюм': 'yuliya',
+    'Та самая Барахолка': 'baraholka',
+    'Поясни за Духари!': 'poyasni',
+    'ПарфПосиделки - клуб ценителей парфюма': 'parfposidelki',
+    'Одеколон ВД': 'odekolon',
+    'PARFUMER ATELIER': 'parfumer',
+    'Цвети и Пахни': 'cvetiipahni',
+    'Сайт с распивами для ценителей оригинальной парфюмерии': 'raspiv'
+  };
+
+  return sellers.map(seller => ({
+    params: { id: sellerIds[seller.name] },
+    props: { seller }
+  }));
+}
+
+const { seller } = Astro.props;
+---
+
+<Layout>
+  <main>
+    <div class="seller-page">
+      <header class="seller-header">
+        <a href="/" class="back-button">← Назад</a>
+        <div class="title-group">
+          <span class="emoji">{seller.emoji}</span>
+          <h1>{seller.name}</h1>
+        </div>
+        <p class="description">{seller.description}</p>
+      </header>
+
+      <div class="seller-info">
+        <div class="info-card">
+          <h2>Основная информация</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Подлинность:</span>
+              <span class="value">{seller.authenticity}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Цены:</span>
+              <span class="value">{seller.price}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Ассортимент:</span>
+              <span class="value">{seller.fragrances}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Рейтинг:</span>
+              <span class="value">{seller.reviews}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pros-cons-section">
+          <div class="pros">
+            <h2>Преимущества</h2>
+            <ul>
+              {seller.pros.map(pro => <li>{pro}</li>)}
+            </ul>
+          </div>
+          <div class="cons">
+            <h2>Недостатки</h2>
+            <ul>
+              {seller.cons.map(con => <li>{con}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div class="reviews-section">
+          <h2>Отзывы покупателей</h2>
+          <div class="reviews-grid">
+            {seller.customer_reviews.map(review => (
+              <div class="review-card">
+                <p class="review-text">"{review.text}"</p>
+                <p class="review-author">— {review.author}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="contact-section">
+          <a href={seller.website} class="contact-button website" target="_blank" rel="noopener noreferrer">
+            🌐 Посетить сайт
+          </a>
+          <a href={seller.chat} class="contact-button chat" target="_blank" rel="noopener noreferrer">
+            💬 Написать в чат
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1b26, #24283b);
+    padding: 2rem;
+  }
+
+  .seller-page {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .back-button {
+    display: inline-block;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.2s;
+  }
+
+  .back-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .seller-header {
+    margin-bottom: 3rem;
+  }
+
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .emoji {
+    font-size: 3rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 0;
+    background: linear-gradient(135deg, #9f7aea, #4c51bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: #ccc;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+
+  .info-card {
+    background: rgba(30, 30, 40, 0.8);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .label {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .value {
+    color: #fff;
+    font-size: 1.1rem;
+  }
+
+  .pros-cons-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .pros, .cons {
+    background: rgba(30, 30, 40, 0.8);
+    border-radius: 1rem;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    color: #ccc;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .reviews-section {
+    background: rgba(30, 30, 40, 0.8);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .review-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .review-text {
+    color: #ccc;
+    font-style: italic;
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+
+  .review-author {
+    color: #888;
+    margin: 0;
+    text-align: right;
+  }
+
+  .contact-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .contact-button {
+    display: block;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 1.1rem;
+    transition: opacity 0.2s;
+  }
+
+  .website {
+    background: linear-gradient(135deg, #9f7aea, #4c51bf);
+  }
+
+  .chat {
+    background: linear-gradient(135deg, #4c51bf, #3182ce);
+  }
+
+  .contact-button:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .pros-cons-section {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-section {
+      grid-template-columns: 1fr;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .emoji {
+      font-size: 2.5rem;
+    }
+  }
+</style>

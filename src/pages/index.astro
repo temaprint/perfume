@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PerfumeGrid from '../components/PerfumeGrid.astro';
+---
+
+<Layout>
+  <main>
+    <h1>Сравнение лучших площадок для покупки ароматов в распив</h1>
+    <p class="subtitle">Найдите лучшие ароматы по выгодным ценам</p>
+    <PerfumeGrid />
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1b26, #24283b);
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #9f7aea, #4c51bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #ccc;
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+  }
+</style>

@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const articles = [
+  {
+    slug: 'raspiv-vs-rozliv',
+    title: 'Чем отличается Распив от Розлива духов?',
+    description: 'Разбираемся в основных отличиях между распивом и розливом парфюмерии, их преимуществах и недостатках.',
+    date: '2024-01-20',
+    emoji: '🏺'
+  }
+];
+---
+
+<Layout>
+  <main>
+    <div class="container">
+      <h1>Блог о парфюмерии</h1>
+      <div class="articles-grid">
+        {articles.map(article => (
+          <a href={`/blog/${article.slug}`} class="article-card">
+            <span class="emoji">{article.emoji}</span>
+            <h2>{article.title}</h2>
+            <p>{article.description}</p>
+            <time datetime={article.date}>
+              {new Date(article.date).toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    flex: 1;
+    background: linear-gradient(135deg, #1a1b26, #24283b);
+    padding: 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #9f7aea, #4c51bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .articles-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .article-card {
+    background: rgba(30, 30, 40, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  .article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+  }
+
+  p {
+    color: #ccc;
+    margin: 0 0 1rem 0;
+    line-height: 1.6;
+  }
+
+  time {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
